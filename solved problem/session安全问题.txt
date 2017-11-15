@@ -1,0 +1,28 @@
+因为servlet就不是线程安全的。servlet的实例变量在堆中因此会出现线程安全问题
+
+你可以看看这个：
+http://blog.csdn.net/wangzijian777/archive/2011/02/18/6194416.aspx
+追问：
+看过了 context 能懂  因为事所有servlet共享的, 但是session 不懂。
+
+追答：
+Session对象在用户会话期存在，只能处理属于同一个Session的请求的线程，因此Session对象的属性访问理论上是线程安全的。
+但当用户打开多个同属于一个进程的浏览器窗口，在这些窗口的访问属于同一个Session，会出现多次请求，需要多个工作线程
+来处理请求，可能造成同时多线程读写属性，这时我们就要对属性的读写进行同步处理。
+
+追问：
+你的意思是 同一个会话 有多个浏览器窗口, 同时发出处理请求?这个意思么. 如果会话只存在一个浏览器页面,就不存在 session 线程安全问题
+
+追答：
+因为request是线程安全的！所以对于request是没有线程安全部安全之说的，也就是说，无论你发送多少个请求，在request中的属性都是受保护的。
+session则不是，因为session可能由于浏览器的不同，对于开启的不同窗口有的是一个session，有的则是多个窗口共享一个session（其实就是用户
+自己和自己共享一个资源），有共享资源的问题，就一定存在线程安全问题。
+google的浏览器中的session就应该是线程安全的，因为是一个窗口一个session，但是对于其他的好像就不一定了。
+
+session的并发线程安全问题（springmvc 可能有多个请求同时并发存取一个session场景，请考虑将RequestMappingHandlerAdapter类中的"synchronizeOnSession"标志设置为"true"。）
+
+springmvc中通过入口参数或者在方法中获取session是存在线程安全问题的。springmvc对session安全问题提供了处理，即上述设置将synchronizeOnSession，
+实现原理是将session获取和处理器方法进行同步（session读取属性进行同步）。
+
+
+

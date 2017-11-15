@@ -1,0 +1,58 @@
+理解http 首部cache-control
+断点续传学习（http分块传输）http://blog.csdn.net/liang19890820/article/details/53215087
+ExecutorService（应用：在单个任务执行时间较短，任务数量较大时）类以及threadlocal类
+学习nio
+SLF4J 日志门面问题，log4j知识点
+消息队列
+pgsql数据库
+学习分布式  git项目  https://github.com/crossoverJie/SSM
+了解apache-commons-*和guava工具类
+重写hprose客户端
+mysql数据库编码设置
+多线程
+学习shiro
+MySQL性能优化（原理分析）
+学习freemarker
+学习linux 
+学习shell语言
+ftp数据上传
+了解jenkins（持续集成开发）  https://www.ibm.com/developerworks/cn/java/j-lo-jenkins/
+
+未解决：
+跨域问题
+深入了解session cookie （第三方cookie 跨域问题）  问题：验证码通过session保存，如果浏览器禁用cookie怎么办？（淘宝在禁止cookie后根本无法登陆，Baidu在登陆是提醒开启cookie）  验证码输入时间20分钟，怎样保证cookie和session不被销毁？
+cors跨域，ajax无法携带cookie！！
+
+已解决：
+学习一下datefomat类
+mysql 时区问题  插入和当前电脑时间不一致，读取时和数据库内存储不一致？
+mysql优化编写通用dao  使用装饰者设计模式
+ping命令
+学习mybatis
+学习maven
+了解一下svn
+多线程访问同一个文件，会存在线程安全问题吗？（不会有安全问题，原因是并不是同时访问的）如果多线程同时读取文件（应用场景：该文件非常大，并且读一次需要处理一次），这时可采用预先计算文件大小，对文件分块读写。
+学习下hprose
+学习Gson
+学习一下之前接触的组件，是不是能直接拿来用
+spring中项目路径问题
+复习log4j日志组件
+json的格式 问题描述：键为字符串，值为数组  通过创建map来实现
+E:\Project\STSWorkSpace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\AdviceFeedback\resources\  项目工程的缓存目录，日志文件，资源文件一般会创建在当前目录中
+mybatis高级sql返回map
+mybatis追踪sql log4j.logger.包名=debug；
+java定时器（http://blog.csdn.net/addisonjing/article/details/55257065）
+学习git   http://blog.jobbole.com/78960/   gitblog
+学习cms
+尝试建立项目种子
+session的并发线程安全问题（springmvc 可能有多个请求同时并发存取一个session场景，请考虑将RequestMappingHandlerAdapter类中的"synchronizeOnSession"标志设置为"true"。）
+mybatis 中example的使用，mybatis逆向工程生成的mapper一般不进行修改。（解决：使用pagehelper分页组件、以及example进行条件处理）
+理解restful架构风格 rest风格依赖于http，一个url对应网上的一个资源，具体体现在于增删改查对应抽象动作资源。
+前后端分离问题
+dbutils查询是否自动关闭连接（查询时传入连接的情况下不会关闭连接，通过构造函数传入数据源的方式查询会关闭连接），spring数据库源bean对象获取连接需要关闭吗（需要关闭）
+try外面无法定义局部变量：新建线程、主线程使用同一变量（try 内新建了一个线程，如果主线程在创建线程以后使用了该变量，并且在该线程中使用该变量必须定义成final常量）
+service层流关闭问题 暂时只能在service层捕捉关闭
+jsr介绍（http://blog.csdn.net/lovesomnus/article/details/50622388） jsr330与依赖注入 jsr是java处理规范，包括很多内容jsr330（依赖注入的规范）属于该规范的一部分，还有像JSR 315是指servlet3.0 的规范。
+spring mvc 前端控制器 映射url：‘/’是加载默认欢迎页面 '/*'页面打印了jsp代码  
+长连接中，对响应设置connection以及keep-alive没有生效（描述直接在servlet中设置请求头，返回响应没有对应的请求头，在hprose的过滤器中设置则会包含）已解决：未知原因，对响应设置请求头connection和keep-alive是允许的，表示在存活时间内下一个请求继续使用该连接
+servlet3.0规范   https://www.ibm.com/developerworks/cn/java/j-lo-servlet30/  （新特性中的异步是指释放请求的线程资源，交给异步线程去处理，并没有返回响应）
