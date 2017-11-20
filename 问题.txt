@@ -1,5 +1,5 @@
 断点续传学习（http分块传输）http://blog.csdn.net/liang19890820/article/details/53215087
-
+mysql数据库缓存命中（不同SQL查询会命中相同缓存内容）
 ExecutorService（应用：在单个任务执行时间较短，任务数量较大时）类以及threadlocal类https://www.cnblogs.com/zhangjk1993/archive/2017/03/29/6641745.html 
 学习nio
 SLF4J 日志门面问题，log4j知识点
