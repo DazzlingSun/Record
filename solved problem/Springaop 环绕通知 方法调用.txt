@@ -1,0 +1,15 @@
+aspectJ切面通过ProceedingJoinPoint想要获取当前执行的方法：
+    Signature s = pjp.getSignature();
+    MethodSignature ms = (MethodSignature)s;
+    Method m = ms.getMethod();
+多态方式实现的传参，以上获取的可能为接口名，而不是实现类的。
+
+获取通用的方法名
+        Signature sig = pjp.getSignature();
+        MethodSignature msig = null;
+        if (!(sig instanceof MethodSignature)) {
+            throw new IllegalArgumentException("该注解只能用于方法");
+        }
+        msig = (MethodSignature) sig;
+        Object target = pjp.getTarget();
+        Method currentMethod = target.getClass().getMethod(msig.getName(), msig.getParameterTypes());
