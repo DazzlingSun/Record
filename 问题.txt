@@ -1,4 +1,6 @@
+视图与sql效率对比
 sql 查询效率问题（不同查询连接查询过程  外连接查询左右表遍历数据条数）SQL必知必会（http://bbs.csdn.net/topics/390662296/）对于100s的数据库查询后台需要怎么做（ sql查询，使用索引）
+solr增量导入
 mybatis批处理  https://www.cnblogs.com/robinjava77/p/5530681.html
 断点续传学习（http分块传输）http://blog.csdn.net/liang19890820/article/details/53215087
 mysql数据库缓存命中（不同SQL查询会命中相同缓存内容）
