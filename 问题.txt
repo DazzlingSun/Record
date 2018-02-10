@@ -1,3 +1,4 @@
+mysql  explain 关键字的使用
 视图与sql效率对比
 sql 查询效率问题（不同查询连接查询过程  外连接查询左右表遍历数据条数）SQL必知必会（http://bbs.csdn.net/topics/390662296/）对于100s的数据库查询后台需要怎么做（ sql查询，使用索引）
 solr增量导入
