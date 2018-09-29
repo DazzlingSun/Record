@@ -1,0 +1,2 @@
+| max_connections          | 151     最大连接数5.7版本默认151，修改到1000
+| max_user_connections     | 0        
