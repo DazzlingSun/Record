@@ -1,0 +1,3 @@
+列表对象中取对象的某个字段拼成数组
+list.stream().map(p ->p.getfield()).collect(collectors.toList()) //非静态方法
+list.stream().map(Object::obj).collect(collectors.toList()) //非静态方法

@@ -1,0 +1,37 @@
+<#if ZZFZR??>${ZZFZR.REALNAME!}<#if>  ZZFZR对象不存在时  显示ZZFZR.REALNAME的值,若REALNAME为空时设置为空字符串;
+<#if (variable!"defaultValue") == "targetValue">是<#else >否<#if>  字符串比较
+
+
+实例：
+
+<#if CYRYList??>
+	<#list CYRYList as PXJHCYRY>
+		<#if PXJHCYRY?? && (PXJHCYRY.YG)??>
+			${(PXJHCYRY.YG.REALNAME)!} 
+		</#if>
+	</#list>
+</#if>
+
+
+<#if PXJHSHList??><#list PXJHSHList as PXJHCYRY><#if (PXJHCYRY ?? && (PXJHCYRY.SHJB)!"") == "部门领导审核">${(PXJHCYRY.SHSM)!}<w:p></w:p>        签字：${(PXJHCYRY.SHRID)!"      "}      ${(PXJHCYRY.SHSJ)!"  年   月   日"}</#if></#list></#if>
+<#if PXJHSHList??><#list PXJHSHList as PXJHCYRY><#if (PXJHCYRY ?? && (PXJHCYRY.SHJB)!"") == "人事处审核意见">${(PXJHCYRY.SHSM)!}<w:p></w:p>        签字：${(PXJHCYRY.SHRID)!"      "}      ${(PXJHCYRY.SHSJ)!"  年   月   日"}</#if></#list></#if>
+
+<#if ZZFZR??>
+	${ZZFZR.REALNAME!}
+</#if>
+
+<#if WBPXJLSHList??>
+	<#list WBPXJLSHList as PXJHCYRY>
+		<#if (PXJHCYRY ?? && (PXJHCYRY.SHJB)!"") == "部门领导审核">${(PXJHCYRY.SHSM)!}
+			<w:p></w:p>        签字：<#if (PXJHCYRY.SHR)??>${(PXJHCYRY.SHR.REALNAME)!"      "}</#if>      ${(PXJHCYRY.SHSJ)!"  年   月   日"}
+		</#if>
+	</#list>
+</#if>
+
+<#if PXJHSHList??><#list PXJHSHList as PXJHCYRY><#if (PXJHCYRY ?? && (PXJHCYRY.SHJB)!"") == "部门领导审核">${(PXJHCYRY.SHSM)!}<w:p></w:p>        签字：${(PXJHCYRY.SHRID)!"      "}      ${(PXJHCYRY.SHSJ)!"  年   月   日"}</#if></#list></#if>
+<#if PXJH??>${PXJH.JHPXSC!}</#if>
+${BZ!}
+
+
+注意：
+  转xml时会被转义: <  &lt; > &gt;   需要重新替换回来

@@ -1,0 +1,8 @@
+Date KSSJ = (Date)map.get("KSSJ");
+KSSJ .toInstant() 抛出UnsupportedOperationException
+
+解决方案 通过 Calendar做一层封装
+
+Date input = new Date();
+Calendar cal = Calendar.getInstance();
+cal.setTime(input);
