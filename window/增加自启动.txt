@@ -1,0 +1,2 @@
+C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp
+目录下增加自启动的快捷方式 

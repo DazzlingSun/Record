@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>Display a map</title>
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+  <script src="mapbox-gl.js"></script>
+  <link href="mapbox-gl.css" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    #map {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 100%;
+    }
+
+    .map-overlay {
+      font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+      position: absolute;
+      width: 25%;
+      top: 0;
+      left: 0;
+      padding: 10px;
+    }
+
+    .map-overlay .map-overlay-inner {
+      background-color: #fff;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+      border-radius: 3px;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+
+    .map-overlay h2 {
+      line-height: 24px;
+      display: block;
+      margin: 0 0 10px;
+    }
+
+
+
+    .map-overlay input {
+      background-color: transparent;
+      display: inline-block;
+      width: 100%;
+      position: relative;
+      margin: 0;
+      cursor: ew-resize;
+    }
+
+    .mapboxgl-popup {
+      max-width: 400px;
+      font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    }
+
+    #marker {
+      background-image: url('https://docs.mapbox.com/mapbox-gl-js/assets/washington-monument.jpg');
+      background-size: cover;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="map"></div>
+  <div class="map-overlay top">
+    <div class="map-overlay-inner">
+      <h2>最大速度</h2>
+      <label id="speed"></label>
+      <input id="slider1" type="range" min="0" max="100" step="10" value="0" />
+      <h2>面透明度</h2>
+      <label id="opacity"></label>
+      <input id="slider2" type="range" min="0" max="100" step="10" value="100" />
+    </div>
+  </div>
+
+  <script>
+    // mapboxgl.accessToken = 'pk.eyJ1IjoieWFuMTIzNCIsImEiOiJjamtuZnFnZTgybWQ2M3BueHJqaHR6N3c1In0.X_0Xqt0LEv4Sh3mzJ-tHUA';
+    var map = new mapboxgl.Map({
+      container: 'map', // container id
+      style: 'http://vtctest.geo-compass.com/geocmap/api/v1/map/10001000191/publish', // stylesheet location
+      center: [-74.5, 40], // starting position [lng, lat]
+      zoom: 9 // starting zoom
+    });
+    var source = {
+      type: "vector",
+      "url": "http://vtctest.geo-compass.com/geocmap/api/v1/tileset/1/10001000187"
+    };
+
+    var layer_fill = {
+      id: 'fillTest',
+      source: source,
+      type: "fill",
+      "source-layer": "10001001238_landuse",
+      layout: {},
+      paint: {
+        "fill-color": "#088",
+        "fill-opacity": 1
+      }
+    };
+    var layer_line = {
+      id: 'lineTest',
+      source: source,
+      type: "line",
+      "source-layer": "10001001247_roads",
+      layout: {},
+      paint: {
+        "line-color": "#D33030",
+        "line-width": 3
+      }
+    };
+    var layer_symbol = {
+      id: 'symbolTest',
+      source: source,
+      'type': 'symbol',
+      'layout': {
+        'icon-image': "feijichang3",
+        "text-field": "{name}",
+        "text-size": 13,
+        "icon-size": 3,
+        "text-font": [
+          "Times New Roman Regular"
+        ]
+      },
+
+      "source-layer": "10001001244_points",
+
+    };
+    map.on("load", function () {
+      map.fitBounds([
+        [120.61849, 31.2575],
+        [120.9209, 31.45759]
+      ])
+      map.addSource('test', source);
+      map.addLayer(layer_fill);
+      map.addLayer(layer_line);
+      map.addLayer(layer_symbol);
+      addMarker()
+      // map.setLayoutProperty('fillTest', "visibility", "visible");
+      // map.setPaintProperty('fillTest', "fill-color", "#000");
+    });
+    map.on('click', 'fillTest', function (e) {
+
+      var coordinates = e.lngLat;
+      var features = map.queryRenderedFeatures(e.point);
+      var ff = features.filter(function (item) {
+        return item.layer.id === 'fillTest'
+      })
+      new mapboxgl.Popup()
+        .setLngLat(coordinates)
+        .setHTML(ff[0].properties.type)
+        .addTo(map);
+    });
+
+    function addMarker() {
+      var monument = [120.66366080310047, 31.30172574621939];
+      var el = document.createElement('div');
+      el.id = 'marker';
+
+      // create the marker
+      new mapboxgl.Marker(el)
+        .setLngLat(monument) // sets a popup on this marker
+        .addTo(map);
+    }
+
+    function filterBy(speed) {
+      var filters = ['==', 'maxspeed', speed];
+      map.setFilter('lineTest', filters);
+
+
+      // Set the label to the month
+      document.getElementById('speed').textContent = speed;
+    }
+    document
+      .getElementById('slider1')
+      .addEventListener('input', function (e) {
+        var speed = parseInt(e.target.value, 10);
+        filterBy(speed);
+      });
+    document
+      .getElementById('slider2')
+      .addEventListener('input', function (e) {
+        var opacity = parseInt(e.target.value, 10);
+        map.setPaintProperty('fillTest', "fill-opacity", opacity / 100);
+        document.getElementById('opacity').textContent = opacity;
+      });
+  </script>
+
+</body>
+
+</html>
